@@ -2,7 +2,7 @@ import he from "he";
 
 export default function Questions(props) {
 
-  const renderButtons = props.answers.map((answer) => {
+  const renderButtons = props.answers.map(answer => {
     let backgroundColor,border,opacity
 
     if(props.finalOutput)
@@ -38,14 +38,14 @@ export default function Questions(props) {
 
 }
 
-
   const styles = {
     backgroundColor,
     opacity,
     border
 }
 
-    return (<button
+    return (
+    <button
       key={answer}
       style={styles}
       onClick={() => props.selectAnswer(answer)}
@@ -53,7 +53,8 @@ export default function Questions(props) {
     >
       {he.decode(answer)}
     </button>
-  )});
+  )
+});
 
   return (
     <div className="main-page-display">

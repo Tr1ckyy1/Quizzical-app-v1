@@ -5,7 +5,6 @@
 
 body{
   font-family:Karla,sans-serif;
-  overflow:hidden;
 }
 
 .container{
@@ -15,7 +14,8 @@ body{
   align-items: center;
   flex-direction: column;
   height:550px;
-  width:550px;
+  width: 90%;
+  max-width: 550px;
 }
 .description{
   font-weight:700;
@@ -59,9 +59,10 @@ input{
   text-align:center;
 }
 input::placeholder{
-  font-size:17px;
+  font-size:15px;
 }
 .error-message {
+  white-space: nowrap;
   color: red;
   font-size: 15px;
   margin-top: 18px;
@@ -137,11 +138,17 @@ input::placeholder{
   background:rgb(49, 55, 88);
 }
 
-.check-answers-btn{
-position:absolute;
-left:50%;
-transform:translateX(-50%);
 
+.check-answers-container{
+display:flex;
+flex-direction: column;
+align-items: center;
+margin-bottom:10px;
+margin-top:0;
+}
+.check-btn-error{
+  white-space: nowrap;
+  font-size:25px;
 }
 
 .questions-container{
@@ -155,7 +162,6 @@ transform:translateX(-50%);
   margin:10px 0;
 }
 .answer{
-  background:white;
   border-radius: 8px;
   min-width: 80px;
   cursor:pointer;
@@ -163,10 +169,6 @@ transform:translateX(-50%);
   font-size:10px;
   min-height:40px;
   margin-right:20px;
-}
-
-.answer:hover{
-  background:rgb(241, 236, 236);
 }
 
 .main-page-display{
@@ -184,6 +186,7 @@ transform:translateX(-50%);
   align-items: center;
   justify-content: center;
   margin-top:30px;
+  margin-bottom:10px;
 }
 
 .check-final-btn{
@@ -191,7 +194,6 @@ transform:translateX(-50%);
   height:40px;
   margin-top:0;
   margin-left:15px;
-
 }
 
 .return-main-page{
@@ -203,9 +205,34 @@ transform:translateX(-50%);
   border:none;
   cursor:pointer;
   font-family:Inter,sans-serif;
-  margin-bottom:10px;
+  margin-bottom:12px;
 }
 
 .return-main-page:hover{
   background:rgba(207, 47, 7, 0.64);
+}
+
+
+.display-questions {
+  margin:0 auto;
+  width:550px;
+  height:80vh;
+  overflow-y: auto;
+  overflow-x:hidden;
+  box-shadow: 0px 1px 14px 0px gray;
+  border-radius:5px;
+}
+
+.display-questions::-webkit-scrollbar {
+  width: 4px;
+}
+
+.display-questions::-webkit-scrollbar-thumb {
+  background-color:  #d3d6e4;
+  border-radius: 5px;
+}
+
+
+.no-overflow {
+  overflow: hidden;
 }
