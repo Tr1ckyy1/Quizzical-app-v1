@@ -8,9 +8,8 @@ function App() {
   const [finalOutput,setFinalOutput] = useState(false)
   const [answersChecked,setAnswersChecked] = useState(false)
   const [difficulty,setDifficulty] = useState()
-  const [questionNum,setQuestionNum] = useState()
   const [inputError, setInputError] = useState("");
-
+  const [inputValue, setInputValue] = useState("");
 
 // Getting data and setting that data with additional info
   async function getQuiz(difficulty,amount) {
@@ -75,12 +74,12 @@ and if the user presses play again, scroll to top
 const displayQuestionsRef = useRef(null);
 
 function startQuiz() {
-  if (!difficulty || !questionNum) {
+  if (!difficulty || !inputValue) {
     setInputError(`To start the quiz choose difficulty level and number of questions.`)
     return;
   }
 
-  const num = parseInt(questionNum);
+  const num = parseInt(inputValue);
 
   if (num < 1 || num > 50 || isNaN(num)) {
     setInputError("Please enter a value between 1 and 50.");
@@ -111,9 +110,14 @@ function difficultyLevel (e){
 function backToMain(){
   setQuiz([])
   setDifficulty()
-  setQuestionNum()
+  setInputValue()
   setFinalOutput(false)
   setInputError("")
+}
+
+function handleInputChange(e){
+ setInputValue(e.target.value.slice(0,2))
+ setInputError("");
 }
 
   const correctAnswers = quiz.filter(data => data.selectedAnswer === data.correct_answer)
@@ -128,7 +132,6 @@ function backToMain(){
       selectAnswer={answer => handleAnswerSelection(el.id, answer)}
       finalOutput={finalOutput}
       correctAnswer={el.correct_answer}
-
       />
       );
     });
@@ -168,7 +171,7 @@ function backToMain(){
         <div>
           <div className="head-content">
           <h1 className="difficulty-level">Difficulty: {difficulty}</h1>
-          <h1 className="number-of-questions">Questions: {questionNum}</h1>
+          <h1 className="number-of-questions">Questions: {inputValue}</h1>
           </div>
         <div className="container">
           <h1 className="title">Quizzical</h1>
@@ -179,15 +182,14 @@ function backToMain(){
           <button onClick={difficultyLevel} className="level btn-hard">Hard</button>
           </div>
           <p className="description questions">Choose Number of Questions</p>
-          <input onChange={
-            (e) =>
-            {
-           setQuestionNum(e.target.value);
-           setInputError("");
-            }
-         } placeholder="Enter a value between 1 and 50" type="number" min="1" max="50"/>
+          <input
+          onChange={handleInputChange}
+          placeholder="Enter a value between 1 and 50" type="number" min="1" max="50"
+          maxLength={2}
+          value={inputValue}
+          />
           <p className="error-message">{inputError}</p>
-          <button
+          <buttong
           onClick={startQuiz}
           className="btn start-btn">
             Start quiz
