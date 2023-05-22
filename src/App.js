@@ -8,8 +8,9 @@ function App() {
   const [finalOutput,setFinalOutput] = useState(false)
   const [answersChecked,setAnswersChecked] = useState(false)
   const [difficulty,setDifficulty] = useState()
+  const [inputValue,setInputValue] = useState("")
   const [inputError, setInputError] = useState("");
-  const [inputValue, setInputValue] = useState("");
+
 
 // Getting data and setting that data with additional info
   async function getQuiz(difficulty,amount) {
@@ -106,6 +107,12 @@ function difficultyLevel (e){
   setDifficulty(e.target.textContent)
 }
 
+function handleInputChange(e){
+  setInputValue(e.target.value.slice(0,2))
+  setInputError("");
+}
+
+
 // Go back and reset everything to null
 function backToMain(){
   setQuiz([])
@@ -113,11 +120,6 @@ function backToMain(){
   setInputValue()
   setFinalOutput(false)
   setInputError("")
-}
-
-function handleInputChange(e){
- setInputValue(e.target.value.slice(0,2))
- setInputError("");
 }
 
   const correctAnswers = quiz.filter(data => data.selectedAnswer === data.correct_answer)
@@ -132,6 +134,7 @@ function handleInputChange(e){
       selectAnswer={answer => handleAnswerSelection(el.id, answer)}
       finalOutput={finalOutput}
       correctAnswer={el.correct_answer}
+
       />
       );
     });
@@ -182,14 +185,13 @@ function handleInputChange(e){
           <button onClick={difficultyLevel} className="level btn-hard">Hard</button>
           </div>
           <p className="description questions">Choose Number of Questions</p>
-          <input
-          onChange={handleInputChange}
+          <input  onChange={handleInputChange}
           placeholder="Enter a value between 1 and 50" type="number" min="1" max="50"
           maxLength={2}
           value={inputValue}
           />
           <p className="error-message">{inputError}</p>
-          <buttong
+          <button
           onClick={startQuiz}
           className="btn start-btn">
             Start quiz
